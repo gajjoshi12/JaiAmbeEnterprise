@@ -35,7 +35,7 @@ export default function HomePage() {
             transition={{ duration: 0.6 }}
             className="text-3xl font-extrabold text-indigo-600 tracking-tight"
           >
-            ShopMate
+            Jai Ambe Prints
           </motion.div>
 
           {/* Desktop Menu */}
@@ -144,25 +144,68 @@ export default function HomePage() {
           dragElastic={0.2}
           className="flex space-x-6"
         >
-{Array.from({ length: 10 }).map((_, i) => (
-  <motion.div
-    key={i}
-    whileHover={{ scale: 1.05, y: -5 }}
-    whileTap={{ scale: 1.15 }}
-    transition={{ type: "spring", stiffness: 150, damping: 12 }}
-    className="relative bg-white rounded-xl shadow-2xl cursor-pointer min-w-[250px] flex-shrink-0"
-  >
-    <img
-      src={`https://via.placeholder.com/300x200.png?text=${cat}+${i + 1}`}
-      alt={`${cat} ${i + 1}`}
-      className="w-full h-40 object-cover rounded-t-xl"
-    />
-    <div className="p-4">
-      <h3 className="text-lg font-semibold">{cat} Product {i + 1}</h3>
-      <p className="text-gray-600 mt-1">Stylish animated card.</p>
-    </div>
-  </motion.div>
-))}
+{Array.from({ length: 10 }).map((_, i) => {
+  const inStock = Math.random() > 0.4; // ~60% chance true
+
+  return (
+    <motion.div
+      key={i}
+      transition={{ type: "spring", stiffness: 150, damping: 12 }}
+      className={`relative bg-white rounded-xl shadow-2xl cursor-pointer min-w-[250px] flex-shrink-0 
+        ${inStock ? "border-4 border-green-500" : ""}`}
+    >
+      {/* In Stock Badge */}
+      {inStock && (
+        <div className="absolute top-3 left-3 bg-green-500/80 text-white text-xs font-semibold px-3 py-1 rounded-md shadow-md">
+          In-Stock
+        </div>
+      )}
+
+      {/* Product Image */}
+      <img
+        src={`https://via.placeholder.com/300x200.png?text=${cat}+${i + 1}`}
+        alt={`${cat} ${i + 1}`}
+        className="w-full h-40 object-cover rounded-t-xl"
+      />
+
+      {/* Product Details */}
+      <div className="p-4 space-y-3">
+        <h3 className="text-lg font-semibold">{cat} Product {i + 1}</h3>
+        <p className="text-gray-600">Stylish animated card.</p>
+
+        {/* Quantity Controls */}
+        <div className="flex items-center justify-between bg-gray-100 rounded-full px-3 py-2 shadow-inner">
+          <motion.button
+            whileHover={{ scale: 1.15 }}
+            whileTap={{ scale: 0.95 }}
+            className="w-8 h-8 flex items-center justify-center bg-indigo-500 text-white rounded-full shadow-md"
+          >
+            −
+          </motion.button>
+          <span className="font-semibold text-gray-800">1</span>
+          <motion.button
+            whileHover={{ scale: 1.15 }}
+            whileTap={{ scale: 0.95 }}
+            className="w-8 h-8 flex items-center justify-center bg-indigo-500 text-white rounded-full shadow-md"
+          >
+            +
+          </motion.button>
+        </div>
+
+        {/* Add to Cart Button */}
+        <motion.button
+          whileHover={{ scale: 1.05, backgroundColor: "#4f46e5" }}
+          whileTap={{ scale: 0.95 }}
+          className="w-full mt-2 bg-gradient-to-r from-indigo-500 to-purple-600 text-white py-2 rounded-xl shadow-lg font-semibold tracking-wide"
+        >
+          🛒 Add to Cart
+        </motion.button>
+      </div>
+    </motion.div>
+  );
+})}
+
+
 
 
         </motion.div>
