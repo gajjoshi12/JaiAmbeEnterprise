@@ -5,6 +5,18 @@ import { motion, AnimatePresence } from "framer-motion";
 
 export default function HomePage() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+
+const handleSearch = () => {
+  if (!searchQuery.trim()) return;
+  const target = document.getElementById(searchQuery.toLowerCase().replace(/\s+/g, "-"));
+  if (target) {
+    target.scrollIntoView({ behavior: "smooth", block: "center" });
+  } else {
+    alert("No matching product found!");
+  }
+};
+
 
   const navLinks = [
     { name: "Home", href: "#home" },
@@ -25,6 +37,7 @@ export default function HomePage() {
 
   return (
     <div className="bg-gradient-to-br from-purple-100 to-indigo-50">
+      
       {/* Navbar */}
       <header className="bg-white/70 backdrop-blur-md fixed w-full z-50 shadow-lg">
         <div className="max-w-7xl mx-auto px-6 lg:px-20 flex justify-between items-center h-20">
@@ -62,6 +75,8 @@ export default function HomePage() {
               Cart
             </motion.button>
           </nav>
+
+          
 
           {/* Mobile Menu Button */}
           <div className="md:hidden flex items-center">
@@ -191,6 +206,20 @@ export default function HomePage() {
             +
           </motion.button>
         </div>
+        {/* Floating WhatsApp Icon */}
+<a
+  href="https://wa.me/919819274629" // 👈 replace with your WhatsApp number
+  target="_blank"
+  rel="noopener noreferrer"
+  className="fixed bottom-6 right-6 z-50"
+>
+  <img
+    src="/whatsapp.png"
+    alt="WhatsApp"
+    className="w-14 h-14 rounded-full shadow-lg hover:scale-110 transition-transform duration-300"
+  />
+</a>
+
 
         {/* Add to Cart Button */}
         <motion.button
